@@ -5,10 +5,17 @@ import flightDetailBG from '../src/flightDetailsBanner2.png';
 import suitcaseWhiteImg from '../src/suitcase_white.png';
 import nextPageImg from '../src/nextpage.png';
 import deliveryImg from '../src/fastdelivery_Bar.png';
+import pic1 from '../src/pic1.jpg';
+import pic2 from '../src/pic2.jpg';
+
+import addPhoto from '@material-ui/icons/AddToPhotos';
+
 
 import {
 	Card,
 	CardActions,
+	CardMedia,
+	CardActionArea,
 	CardContent,
 	Typography,
 	ExpansionPanel,
@@ -246,6 +253,53 @@ class TripDetails extends Component {
 							</div>
 						</div>
 					)}
+				
+					{luggages.length > 0 && (
+							<div>
+								<div className="content-header">
+									Luggage Picture
+								</div>
+								<div className="baggagesPic">
+								<Card className="baggage-card">
+								<CardActionArea>
+									<CardMedia
+										className="class-media"
+										title="Contemplative Reptile"
+										alt="Contemplative Reptile"
+									>
+									<div className = "baggage-pic-shadow-box">
+									<img className = 'baggage-pic' src="/pic1.jpg"  />
+									</div>
+									
+									<div className = "baggage-pic-shadow-box">
+										<img className = 'baggage-pic' src="/pic2.jpg"  />
+									</div>
+
+									<div className = "baggage-pic-shadow-box ">
+									<img className = 'baggage-pic' src="/addPic.png"  />
+									{/* <IconButton>
+										<addPhoto/>
+									</IconButton> */}
+									</div>
+
+									</CardMedia>
+								</CardActionArea>
+										<CardContent className="baggage-card-content">
+											<div className="baggage-card-header">
+												<div className="baggage-card-basic-info-wrapper baggage-pic-info">
+
+
+												</div>
+											</div>
+											<div className="picture">
+
+											</div>
+										</CardContent>
+								</Card>
+							</div>
+							</div>
+					)}
+
 				</div>
 				
 			</div>
