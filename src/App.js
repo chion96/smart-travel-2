@@ -34,7 +34,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      sideBarOpen: false
+      sideBarOpen: false,
+      logged: true
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
   }
@@ -44,69 +45,78 @@ class App extends Component {
   }
 
   render() {
-    const { sideBarOpen } = this.state;
-
+    const { path } = this.props;
+    const { sideBarOpen, logged } = this.state;
+    
     return (
       <Router>
         <div className="App">
-          <header className="App-header">
+          {logged && (
+            <div>
+              <header className="App-header">
+                <AppBar position="static">
+                  <Toolbar className="appToolBar">
+                    <IconButton className="appBarButton measurementButton" color="inherit" aria-label="Measure">
+                      <CenterFocusWeakIcon />
+                    </IconButton>
+                    <div className="headerTitle">
+                      <img src={cathayLogo} />
+                    </div>
+                    <IconButton className="appBarButton notificationButton" color="inherit" aria-label="Notifications">
+                      <NotificationsIcon />
+                    </IconButton>
+                    <IconButton className="appBarButton sideMenuButton" color="inherit" aria-label="Menu" onClick={this.toggleSideBar}>
+                      <MenuIcon />
+                    </IconButton>
+                  </Toolbar>
+                </AppBar>
+                <Drawer
+                  variant="persistent"
+                  anchor="right"
+                  open={sideBarOpen}
+                >
+                  <div className="sideBarHeader">
+                    <IconButton onClick={this.toggleSideBar}>
+                      <ChevronLeftIcon />
+                    </IconButton>
+                  </div>
+                  <Divider />
+                  <List>
 
-            <AppBar position="static">
-              <Toolbar className="appToolBar">
-                <IconButton className="appBarButton measurementButton" color="inherit" aria-label="Measure">
-                  <CenterFocusWeakIcon />
-                </IconButton>
-                <div className="headerTitle">
-                  <img src={cathayLogo} />
-                </div>
-                <IconButton className="appBarButton notificationButton" color="inherit" aria-label="Notifications">
-                  <NotificationsIcon />
-                </IconButton>
-                <IconButton className="appBarButton sideMenuButton" color="inherit" aria-label="Menu" onClick={this.toggleSideBar}>
-                  <MenuIcon />
-                </IconButton>
-              </Toolbar>
-            </AppBar>
-            <Drawer
-              variant="persistent"
-              anchor="right"
-              open={sideBarOpen}
-            >
-              <div className="sideBarHeader">
-                <IconButton onClick={this.toggleSideBar}>
-                  <ChevronLeftIcon />
-                </IconButton>
+                    <Link to='/'>
+                      <ListItem button key="Home">
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary="Home" />
+                      </ListItem>
+                    </Link>
+
+                    <Link to='/trip_details'>
+                      <ListItem button key="Trip Details">
+                          <ListItemIcon><InboxIcon /></ListItemIcon>
+                          <ListItemText primary="Trip Details" />
+                      </ListItem>
+                    </Link>
+
+                    <ListItem button key="Logout" onClick={() => {this.setState({ logged: false })}}>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary="Logout" />
+                    </ListItem>
+                  </List>
+                </Drawer>
+              </header>
+
+              <div className="app-container">
+                <Route exact path="/" component={Trips} />
+                <Route path="/trip_details" component={TripDetails} />
               </div>
-              <Divider />
-              <List>
-                <ListItem button key="Home">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Home" />
-                </ListItem>
-              </List>
-            </Drawer>
-          </header>
 
-          <ul>
-            <li>
-              <Link to='/Login'>Link to Login</Link>
-            </li>
-            <li>
-              <Link to='/'>Link to Trips</Link>
-            </li>
-            <li>
-              <Link to='/trip_details'>Link to TripDetails</Link>
-            </li>
-          </ul>
-
-          <div className="app-container">
-            <Route exact path="/" component={Trips} />
-            <Route path="/login" component={Login} />
-            <Route path="/trip_details" component={TripDetails} />
-          </div>
-
-          <footer>
-          </footer>
+              <footer>
+              </footer>
+            </div>
+          )}
+          {!logged && (
+            <Login />
+          )}
         </div>
 
         
