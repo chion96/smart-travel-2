@@ -39,7 +39,19 @@ class Login extends Component {
 
     };
 
+    componentDidMount(){
+        function timeout() {
+            setTimeout(function () {
+                // Do Something Here
+                console.log(Date.now());
+                timeout();
+            }, 1000);
+        }
+        timeout();
+    }
+
     render() {
+
         if (this.state.mode === 0) {
             return (
                 <div className="login">
