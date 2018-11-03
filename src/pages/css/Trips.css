@@ -83,3 +83,10 @@ img.golden-plane {
 	right: 0;
 	text-align: center;
 }
+
+img.trip-next {
+	position: absolute;
+    height: 35%;
+    top: 32.5%;
+    right: 3px;
+}

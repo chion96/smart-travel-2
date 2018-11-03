@@ -24,11 +24,14 @@ import {
   ListItemText
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import CenterFocusWeakIcon from '@material-ui/icons/CenterFocusWeak';
+import HomeIcon from '@material-ui/icons/Home';
+import InputIcon from '@material-ui/icons/Input';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 class App extends Component {
   constructor(props) {
@@ -84,21 +87,32 @@ class App extends Component {
                   <List>
 
                     <Link to='/'>
-                      <ListItem button key="Home">
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                      <ListItem button key="Home" onClick={() => {this.setState({ sideBarOpen: false })}}>
+                        <ListItemIcon><HomeIcon /></ListItemIcon>
                         <ListItemText primary="Home" />
                       </ListItem>
                     </Link>
-
+                    
                     <Link to='/trip_details'>
-                      <ListItem button key="Trip Details">
+                      <ListItem button key="Trip Details" onClick={() => {this.setState({ sideBarOpen: false })}}>
                           <ListItemIcon><InboxIcon /></ListItemIcon>
                           <ListItemText primary="Trip Details" />
                       </ListItem>
                     </Link>
 
+                    <ListItem button key="Account" onClick={() => {this.setState({ sideBarOpen: false })}}>
+                        <ListItemIcon><AccountCircleIcon/></ListItemIcon>
+                        <ListItemText primary="Account" />
+                    </ListItem>
+                    
+
+                    <ListItem button key="Settings" onClick={() => {this.setState({ sideBarOpen: false })}}>
+                        <ListItemIcon><SettingsIcon/></ListItemIcon>
+                        <ListItemText primary="Settings" />
+                    </ListItem>
+
                     <ListItem button key="Logout" onClick={() => {this.setState({ logged: false })}}>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemIcon><InputIcon /></ListItemIcon>
                         <ListItemText primary="Logout" />
                     </ListItem>
                   </List>
@@ -111,6 +125,7 @@ class App extends Component {
               </div>
 
               <footer>
+
               </footer>
             </div>
           )}

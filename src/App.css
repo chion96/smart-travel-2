@@ -31,3 +31,8 @@ button.sideMenuButton {
   right: 12px;
   z-index: 100;
 }
+
+.app-container {
+  padding-bottom: 20px;
+  background-color: #ebedec;
+}

@@ -103,6 +103,10 @@ div.flight-detail-card {
 	margin-top: 10px;
 }
 
+.baggage-card:last-child {
+	margin-bottom: 20px;
+}
+
 .baggage-card-header {
 	background-color: #006465;
     width: 100%;
@@ -111,7 +115,7 @@ div.flight-detail-card {
 
 .baggage-card-suitcase-wrapper {
 	width: 10%;
-	padding: 5px 10px;
+	padding: 5px 20px;
 }
 
 .baggage-card-suitcase {
@@ -131,17 +135,22 @@ div.flight-detail-card {
 
 .baggage-card-report-wrapper {
 	width: 10%;
+	padding: 0 10px;
 }
 
 .baggage-card-report-wrapper > button {
-    padding: 12px 5px;
+    padding: 5px;
     width: 100%;
     color: white;
 }
 
+.baggage-card-content {
+	padding: 0 !important;
+}
+
 .baggage-card-summary {
 	text-align: left;
-	padding-left: 10px !important;
+	padding-left: 20px !important;
 }
 
 .baggage-location {
@@ -154,6 +163,33 @@ div.flight-detail-card {
     transform: rotate(90deg);
 }
 
-.baggage-timelin-detail {
-	
+.baggage-timeline-header {
+
+}
+
+.baggage-timeline {
+	padding: 24px 24px 0px 38px !important;
+}
+
+.delivery {
+	position: relative;
+	background: #224A78;
+}
+
+.deliver-img {
+	width: 100%;
+}
+
+.delivery-text {
+	position: absolute;
+    color: white;
+    top: 11px;
+    left: 20px;
+    font-size: 14px;
+}
+
+.baggage-card-report-wrapper > div {
+    color: white;
+    font-size: 12px;
+    line-height: 0.5;
 }

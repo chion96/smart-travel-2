@@ -20,6 +20,21 @@ const theme = createMuiTheme({
       expanded: {
         margin: '0'
       }
+    },
+    MuiExpansionPanelDetails: {
+      root: {
+        padding: '8px 24px 24px 20px'
+      }
+    },
+    MuiToolbar: {
+      regular: {
+        minHeight: '50px'
+      }
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: '0'
+      }
     }
   }
 });

@@ -4,6 +4,7 @@ import beijingImg from '../src/beijing.png';
 import flightDetailBG from '../src/flightDetailsBanner2.png';
 import suitcaseWhiteImg from '../src/suitcase_white.png';
 import nextPageImg from '../src/nextpage.png';
+import deliveryImg from '../src/fastdelivery_Bar.png';
 
 import {
 	Card,
@@ -134,6 +135,12 @@ class TripDetails extends Component {
 									</div>
 								</div>
 							</div>
+							<div className="delivery">
+								<img className="deliver-img" src={deliveryImg} />
+								<div className="delivery-text">
+									Direct Luggage Delivery Service
+								</div>
+							</div>
 						</CardContent>
 					</Card>
 				</div>
@@ -185,6 +192,7 @@ class TripDetails extends Component {
 												<IconButton>
 													<WarningIcon />
 												</IconButton>
+												<div>Report</div>
 											</div>
 										</div>
 										<ExpansionPanel className="baggage-card-expansion">
@@ -208,24 +216,29 @@ class TripDetails extends Component {
 											</ExpansionPanelSummary>
 											<Divider light />
 											<ExpansionPanelDetails>
-												<div className="baggage-timelin-detail">
-													Logistic Details:
+												<div>
+													<div className="baggage-timeline-header">
+														Logistic Details:
+													</div>
+													<Stepper className="baggage-timeline" orientation="vertical">
+														<Step key={0} active={true} completed={true}>
+	                										<StepLabel>Checked in at HKG</StepLabel>
+	                										<StepContent>02 Jan 13:27</StepContent>
+	                									</Step>
+	                									<Step key={1} active={true} completed={true}>
+	                										<StepLabel>Onboarded at HKG</StepLabel>
+	                										<StepContent>02 Jan 15:04</StepContent>
+	                									</Step>
+	                									<Step key={2} active={true} completed={true}>
+	                										<StepLabel>Offboarded at PEK</StepLabel>
+	                										<StepContent>02 Jan 18:30</StepContent>
+	                									</Step>
+	                									<Step key={3}>
+	                										<StepLabel>On belt at PEK</StepLabel>
+	                										<StepContent>02 Jan 18:46</StepContent>
+	                									</Step>
+													</Stepper>
 												</div>
-												<Stepper activeStep={1} orientation="vertical">
-													<Step key={0}>
-                										<StepLabel>Checked in at HKG</StepLabel>
-                										<StepContent>02 Jan 13:27</StepContent>
-                									</Step>
-                									<Step key={1}>
-                										<StepLabel>Onboarded at HKG</StepLabel>
-                										<StepContent>02 Jan 13:27</StepContent>
-                									</Step>
-                									<Step key={2}>
-                										<StepLabel>Offboarded at PEK</StepLabel>
-                										<StepContent>02 Jan 13:27</StepContent>
-                									</Step>
-												</Stepper>
-
 											</ExpansionPanelDetails>
 										</ExpansionPanel>
 									</CardContent>
