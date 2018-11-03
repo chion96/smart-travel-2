@@ -193,3 +193,29 @@ div.flight-detail-card {
     font-size: 12px;
     line-height: 0.5;
 }
+
+.baggage-pic-info{
+	text-align:center;
+	margin-left: 30px;
+}
+
+.baggage-pic{
+	width: 80px;
+	height: 80px;
+	
+}
+
+.baggage-pic-add-picture{
+	width: 20px;
+	height: auto;
+}
+
+.baggage-pic-shadow-box{
+	border: 1px solid;
+	border-color: #224A78;
+    padding: 10px;
+	box-shadow: 1px 5px;
+	display: inline-block;
+	margin-left: 15px;
+	margin-top: 15px;
+}
