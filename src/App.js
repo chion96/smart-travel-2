@@ -38,9 +38,23 @@ class App extends Component {
     super(props);
     this.state = { 
       sideBarOpen: false,
-      logged: true
+      logged: true,
+      trips: []
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  componentWillReceiveProps(props) {
+    console.log(props)
+  }
+
+  login(trips) {
+    this.setState({
+      logged: true,
+      sideBarOpen: false,
+      trips: trips
+    })
   }
 
   toggleSideBar() {
@@ -49,8 +63,8 @@ class App extends Component {
 
   render() {
     const { path } = this.props;
-    const { sideBarOpen, logged } = this.state;
-      
+    const { sideBarOpen, logged, trips } = this.state;
+    
     return (
       <Router>
         <div className="App">
@@ -120,7 +134,7 @@ class App extends Component {
               </header>
 
               <div className="app-container">
-                <Route exact path="/" component={Trips} />
+                <Route exact path="/" component={() => <Trips trips={trips}/>}/>
                 <Route path="/trip_details" component={TripDetails} />
               </div>
 
@@ -130,7 +144,7 @@ class App extends Component {
             </div>
           )}
           {!logged && (
-            <Login />
+            <Login login={this.login}/>
           )}
         </div>
 

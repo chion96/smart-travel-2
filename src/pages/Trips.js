@@ -16,17 +16,119 @@ import {
 
 import './css/Trips.css';
 
+import axios from 'axios';
+
 class Trips extends Component {
 	constructor(props) {
 		super(props);
 		this.handleTrip = this.handleTrip.bind(this);
 	}
 
-	handleTrip(tripId) {
-		console.log('tripId = ' + tripId);
-	}
+	async handleTrip(tripId) {
+        await axios.get(`http://localhost:8080/api/trip/${tripId}`).then(res => {
+            console.log(res.data)
+        });
+    };
 
 	render() {
+		//const { trips } = this.props;
+		const trips = [{
+		'tripID': 0,
+		'tripNumber' : 'CX5810',
+		'Class' : 'Economy',
+		'from': 'Berlin',
+		'fromShort': 'BER',
+		'to': 'Hong Kong',
+		'toShort': 'HKG',
+		'toPicture' : 'hongkong.jpeg',
+		'fromDate': '02Jan19 15:45',
+		'toDate': '02Jan19 18:20',
+		'PaggaeAllow': '32kg',
+		'luggage':[{
+			'luggageID' : 1,
+			'weight': 10,
+			'status': 'onBoard',
+			'location': 'Berlin International Airport',
+			'timeline':[
+				{
+					'time': "02Jan19 14:20",
+					'details': "Offboard at HKG"
+				},{
+					'time': "02Jan19 12:40",
+					'details': "Onboard at BER"
+				},{
+					'time': "02Jan19 11:27",
+					'details': "Checked at BER"
+				}
+			]
+			},{
+			'luggageID' : 2,
+			'weight': 23,
+			'status': 'onBoard',
+			'location': 'Berlin International Airport',
+			'timeline':[
+				{
+					'time': "02Jan19 14:20",
+					'details': "Offboard at HKG"
+				},{
+					'time': "02Jan19 12:40",
+					'details': "Onboard at BER"
+				},{
+					'time': "02Jan19 11:27",
+					'details': "Checked at BER"
+				}
+			]
+			}]
+		},{
+			'tripID': 1,
+			'tripNumber' : 'CX5710',
+			'Class' :'Business',
+			'from': 'Hong Kong',
+			'fromShort': 'HKG',
+			'to': 'Beijing',
+			'toShort': 'PEK',
+			'toPicture' : 'beijing.png',
+			'fromDate': '02Jan19 15:45',
+			'toDate': '02Jan19 18:20',
+			'PaggaeAllow': '32kg',
+			'luggage':[{
+				'luggageID' : 3,
+				'weight': 5,
+				'status': 'onBoard',
+				'location': 'Hong Kong International Airport',
+				'timeline':[
+					{
+						'time': "02Jan19 18:20",
+						'details': "Offboard at PEK"
+					},{
+						'time': "02Jan19 15:40",
+						'details': "Onboard at HKG"
+					},{
+						'time': "02Jan19 13:27",
+						'details': "Checked at HKG"
+					}
+				]
+				},{
+				'luggageID' : 4,
+				'weight': 22,
+				'status': 'onBoard',
+				'location': 'Hong Kong International Airport',
+				'timeline':[
+					{
+						'time': "02Jan19 18:20",
+						'details': "Offboard at PEK"
+					},{
+						'time': "02Jan19 15:40",
+						'details': "Onboard at HKG"
+					},{
+						'time': "02Jan19 13:27",
+						'details': "Checked at HKG"
+					}
+				]
+				}]
+			}
+		];
+
 		return (
 			<div className="trip-container">
 				<div>
@@ -49,46 +151,60 @@ class Trips extends Component {
 					</div>
 
 					<div className="trips">
-						<Card className="trip" onClick={() => this.handleTrip(1)}>
-							<CardActionArea >
-								<CardContent className="trip-content">
-									<div className="trip-from">
-										<div className="trip-header grey-text">
-											From
-										</div>
+						{trips.map((trip, index) => {
+							console.log(window.location.origin + '/' + trip.toPicture)
+							return (
+								<Card key={index} className="trip" onClick={() => this.handleTrip(trip.tripID)}>
+									<CardActionArea >
+										<CardContent className="trip-content-wrapper">
+											<div 
+												className="to-pic" 
+												style={{
+													backgroundImage: "url('" + window.location.origin + '/' + trip.toPicture + "'"
+												}}>
+											</div>
+											<div className="trip-content">
+												<div className="trip-from">
+													<div className="trip-header grey-text">
+														From
+													</div>
 
-										<div className="trip-destination">
-											HKG
-										</div>
+													<div className="trip-destination">
+														{trip.fromShort}
+													</div>
 
-										<div className="trip-time grey-text">
-											<img className="depart-img" src={departImg} />
-											<p>02/01/2019 15:45</p>
-										</div>
-									</div>
-									
+													<div className="trip-time grey-text">
+														<img className="depart-img" src={departImg} />
+														<p>{trip.fromDate}</p>
+													</div>
+												</div>
+												
 
-									<img className="golden-plane" src={goldenPlaneImg} />
+												<img className="golden-plane" src={goldenPlaneImg} />
 
-									<div className="trip-to">
-										<div className="trip-header grey-text">
-											To
-										</div>
+												<div className="trip-to">
+													<div className="trip-header grey-text">
+														To
+													</div>
 
-										<div className="trip-destination">
-											PKE
-										</div>
+													<div className="trip-destination">
+														{trip.toShort}
+													</div>
 
-										<div className="trip-time grey-text">
-											<img className="depart-img" src={landingImg} />
-											<p>02/01/2019 18:22</p>
-										</div>
-									</div>
+													<div className="trip-time grey-text">
+														<img className="depart-img" src={landingImg} />
+														<p>{trip.toDate}</p>
+													</div>
+												</div>
+											</div>
 
-									<img className="trip-next" src={nextPageImg} />
-								</CardContent>
-							</CardActionArea>
-						</Card>
+											<img className="trip-next" src={nextPageImg} />
+										</CardContent>
+									</CardActionArea>
+								</Card>
+							)
+						})}
+						
 					</div>
 				</div>
 

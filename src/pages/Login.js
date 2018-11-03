@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
@@ -31,10 +32,12 @@ class Login extends Component {
     };
 
     async submit() {
-
         await axios.get(`http://localhost:8080/api/login/${this.state.name}/${this.state.password}`).then(res => {
-            console.log(`http://localhost:8080/api/${this.state.name}/${this.state.password}`)
-            console.log(res.data);
+            if (res.data.result === false) {
+                console.log("login failed");
+            } else {
+                this.props.login(res.data.result);
+            }
         });
 
     };
@@ -47,7 +50,7 @@ class Login extends Component {
                 timeout();
             }, 1000);
         }
-        timeout();
+        //timeout();
     }
 
     render() {
@@ -140,6 +143,6 @@ class Login extends Component {
 
 
 
-export default Login;
+export default withRouter(Login);
 
 /* eslint-enable */

@@ -34,6 +34,10 @@ div.trip {
 	margin: 12px 0;
 }
 
+div.trip-content-wrapper {
+	padding: 0!important;
+}
+
 div.trip-content {
 	padding: 0!important;
     width: 100%;
@@ -86,7 +90,14 @@ img.golden-plane {
 
 img.trip-next {
 	position: absolute;
-    height: 35%;
-    top: 32.5%;
+    height: 20%;
+    top: 72%;
     right: 3px;
+}
+
+.to-pic {
+	height: 140px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
