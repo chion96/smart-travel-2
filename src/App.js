@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import logo from './logo.svg';
 import cathayLogo from './src/Cathay/element/bannerLogo.png';
 
 import './App.css';
+
+import Login from './pages/Login';
+import Trips from './pages/Trips';
+import TripDetails from './pages/TripDetails';
 
 import { 
   AppBar, 
@@ -41,58 +47,70 @@ class App extends Component {
     const { sideBarOpen } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">
+      <Router>
+        <div className="App">
+          <header className="App-header">
 
-          <AppBar position="static">
-            <Toolbar className="appToolBar">
-              <IconButton className="appBarButton measurementButton" color="inherit" aria-label="Measure">
-                <CenterFocusWeakIcon />
-              </IconButton>
-              <div className="headerTitle">
-                <img src={cathayLogo} />
+            <AppBar position="static">
+              <Toolbar className="appToolBar">
+                <IconButton className="appBarButton measurementButton" color="inherit" aria-label="Measure">
+                  <CenterFocusWeakIcon />
+                </IconButton>
+                <div className="headerTitle">
+                  <img src={cathayLogo} />
+                </div>
+                <IconButton className="appBarButton notificationButton" color="inherit" aria-label="Notifications">
+                  <NotificationsIcon />
+                </IconButton>
+                <IconButton className="appBarButton sideMenuButton" color="inherit" aria-label="Menu" onClick={this.toggleSideBar}>
+                  <MenuIcon />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              variant="persistent"
+              anchor="right"
+              open={sideBarOpen}
+            >
+              <div className="sideBarHeader">
+                <IconButton onClick={this.toggleSideBar}>
+                  <ChevronLeftIcon />
+                </IconButton>
               </div>
-              <IconButton className="appBarButton notificationButton" color="inherit" aria-label="Notifications">
-                <NotificationsIcon />
-              </IconButton>
-              <IconButton className="appBarButton sideMenuButton" color="inherit" aria-label="Menu" onClick={this.toggleSideBar}>
-                <MenuIcon />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            variant="persistent"
-            anchor="right"
-            open={sideBarOpen}
-          >
-            <div className="sideBarHeader">
-              <IconButton onClick={this.toggleSideBar}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
-            <Divider />
-            <List>
-              <ListItem button key="Home">
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItem>
-            </List>
-          </Drawer>
+              <Divider />
+              <List>
+                <ListItem button key="Home">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </List>
+            </Drawer>
+          </header>
 
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+          <ul>
+            <li>
+              <Link to='/Login'>Link to Login</Link>
+            </li>
+            <li>
+              <Link to='/'>Link to Trips</Link>
+            </li>
+            <li>
+              <Link to='/trip_details'>Link to TripDetails</Link>
+            </li>
+          </ul>
+
+          <div className="app-container">
+            <Route exact path="/" component={Trips} />
+            <Route path="/login" component={Login} />
+            <Route path="/trip_details" component={TripDetails} />
+          </div>
+
+          <footer>
+          </footer>
+        </div>
+
+        
+      </Router>
     );
   }
 }
