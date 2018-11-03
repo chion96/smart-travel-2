@@ -1,0 +1,85 @@
+.trip-container {
+	background-color: #ebedec;
+	color: #5d5d5d;
+}
+
+.home-banner-img {
+	width: 100%;
+}
+
+div.header-card {
+	margin-top: -8px;
+	border-radius: 0;
+}
+
+div.header-card > div.header-card-content {
+	padding: 10px 20px 10px 20px;
+	padding-bottom: 10px;
+}
+
+div.header-card > div.header-card-content > p {
+	margin-bottom: 0;
+}
+
+div.content-div {
+	padding: 20px 20px 10px 20px;
+}
+
+div.content-header {
+	color: #006465;
+	font-weight: bold;
+}
+
+div.trip {
+	margin: 12px 0;
+}
+
+div.trip-content {
+	padding: 0!important;
+    width: 100%;
+    height: 80px;
+    position: relative;
+    display: inline-flex;
+}
+
+div.trip-from, div.trip-to {
+	text-align: center;
+	width: 45%;
+	padding: 8px 0;
+}
+
+.trip-header {
+	font-size: 12px;
+}
+
+.grey-text {
+	color: #c6c2c1;
+}
+
+.trip-destination {
+	font-size: 32px;
+    line-height: 1;
+}
+
+.trip-time {
+	display: inline-flex;
+}
+
+.trip-time > img {
+	width: auto;
+    height: 19px;
+}
+
+.trip-time > p {
+	font-size: 11px;
+    margin: 3px;
+}
+
+img.golden-plane {
+	height: 100%;
+    width: auto;
+    margin: auto;
+	left: 0;
+	right: 0;
+	text-align: center;
+}

@@ -1,0 +1,75 @@
+.login {
+  text-align: center;
+  background-image: url('../../src/CathayBG.png');
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.login1 {
+  text-align: center;
+  background-image: url('../../src/CathayBG.png');
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+}
+
+#standardInput {
+  width: 300px;
+}
+
+label.MuiFormLabel-root-12{
+  color: lightgray;
+}
+
+div.MuiInput-underline-23:before{
+  border-bottom: 1px solid rgba(243, 235, 235, 0.42);
+}
+
+div.MuiInput-underline-23:after{
+  border-bottom: 1px solid rgba(243, 235, 235, 0.42);
+}
+
+.content1{
+  padding-top: 320px
+}
+
+.content {
+  margin-top: 150px;
+}
+
+.MuiButtonBase-root-75 {
+  background-color: white;
+}
+
+.buttons {
+  margin-top: 30px;
+}
+
+button.signInButton {
+  margin-top: 20px;
+  width: 300px;
+  background-color: #ffffff6e;
+  color: white;
+}
+
+span.MuiButton-label-50 {
+  text-transform: none;
+}
+
+button.signInButton:hover {
+  margin-top: 20px;
+  width: 300px;
+  background-color: #ffffff6e;
+  color: white;
+}

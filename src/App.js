@@ -47,7 +47,7 @@ class App extends Component {
   render() {
     const { path } = this.props;
     const { sideBarOpen, logged } = this.state;
-    
+      
     return (
       <Router>
         <div className="App">

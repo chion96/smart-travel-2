@@ -1,0 +1,25 @@
+.trip-details-container {
+	background-color: #ebedec;
+	color: #5d5d5d;
+}
+
+.home-banner-img {
+	width: 100%;
+}
+
+.flight-overviews {
+	display: inline-flex;
+	width: 100%;
+}
+
+.flight-overview {
+	width: 50%;
+}
+
+.flight-overview-header {
+	font-size: 12px;
+}
+
+.flight-overview-content {
+	font-weight: 500;
+}
