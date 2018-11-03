@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 
 import homeBannerImg from '../src/homebanner.png';
 import goldenPlaneImg from '../src/goldenPlane.png';
@@ -21,113 +22,43 @@ import axios from 'axios';
 class Trips extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			trips: [],
+			historyTrips: [],
+		};
 		this.handleTrip = this.handleTrip.bind(this);
 	}
 
+	componentWillMount() {
+		const { clientId } = this.props;
+
+		this.getTrips(clientId);
+	}
+
+	async getTrips(clientId) {
+		await axios.get(`http://localhost:8080/api/trips/${clientId}`).then(async resTrips => {
+			await axios.get(`http://localhost:8080/api/tripsHistory/${clientId}`).then(resHistoryTrips => {
+            	this.setState({ 
+            		trips: resTrips.data,
+            		historyTrips: resHistoryTrips.data
+            	});
+           	});
+        });
+	}
+
 	async handleTrip(tripId) {
-        await axios.get(`http://localhost:8080/api/trip/${tripId}`).then(res => {
-            console.log(res.data)
+		const { clientId, history } = this.props;
+        await axios.get(`http://localhost:8080/api/trip/${clientId}/${tripId}`).then(res => {
+        	history.push({
+        		pathname: '/trip_details',
+        		tripId: res.data.tripID,
+        		clientId: clientId
+        	});
         });
     };
 
 	render() {
-		//const { trips } = this.props;
-		const trips = [{
-		'tripID': 0,
-		'tripNumber' : 'CX5810',
-		'Class' : 'Economy',
-		'from': 'Berlin',
-		'fromShort': 'BER',
-		'to': 'Hong Kong',
-		'toShort': 'HKG',
-		'toPicture' : 'hongkong.jpeg',
-		'fromDate': '02Jan19 15:45',
-		'toDate': '02Jan19 18:20',
-		'PaggaeAllow': '32kg',
-		'luggage':[{
-			'luggageID' : 1,
-			'weight': 10,
-			'status': 'onBoard',
-			'location': 'Berlin International Airport',
-			'timeline':[
-				{
-					'time': "02Jan19 14:20",
-					'details': "Offboard at HKG"
-				},{
-					'time': "02Jan19 12:40",
-					'details': "Onboard at BER"
-				},{
-					'time': "02Jan19 11:27",
-					'details': "Checked at BER"
-				}
-			]
-			},{
-			'luggageID' : 2,
-			'weight': 23,
-			'status': 'onBoard',
-			'location': 'Berlin International Airport',
-			'timeline':[
-				{
-					'time': "02Jan19 14:20",
-					'details': "Offboard at HKG"
-				},{
-					'time': "02Jan19 12:40",
-					'details': "Onboard at BER"
-				},{
-					'time': "02Jan19 11:27",
-					'details': "Checked at BER"
-				}
-			]
-			}]
-		},{
-			'tripID': 1,
-			'tripNumber' : 'CX5710',
-			'Class' :'Business',
-			'from': 'Hong Kong',
-			'fromShort': 'HKG',
-			'to': 'Beijing',
-			'toShort': 'PEK',
-			'toPicture' : 'beijing.png',
-			'fromDate': '02Jan19 15:45',
-			'toDate': '02Jan19 18:20',
-			'PaggaeAllow': '32kg',
-			'luggage':[{
-				'luggageID' : 3,
-				'weight': 5,
-				'status': 'onBoard',
-				'location': 'Hong Kong International Airport',
-				'timeline':[
-					{
-						'time': "02Jan19 18:20",
-						'details': "Offboard at PEK"
-					},{
-						'time': "02Jan19 15:40",
-						'details': "Onboard at HKG"
-					},{
-						'time': "02Jan19 13:27",
-						'details': "Checked at HKG"
-					}
-				]
-				},{
-				'luggageID' : 4,
-				'weight': 22,
-				'status': 'onBoard',
-				'location': 'Hong Kong International Airport',
-				'timeline':[
-					{
-						'time': "02Jan19 18:20",
-						'details': "Offboard at PEK"
-					},{
-						'time': "02Jan19 15:40",
-						'details': "Onboard at HKG"
-					},{
-						'time': "02Jan19 13:27",
-						'details': "Checked at HKG"
-					}
-				]
-				}]
-			}
-		];
+		const { trips, historyTrips } = this.state;
 
 		return (
 			<div className="trip-container">
@@ -151,8 +82,7 @@ class Trips extends Component {
 					</div>
 
 					<div className="trips">
-						{trips.map((trip, index) => {
-							console.log(window.location.origin + '/' + trip.toPicture)
+						{trips !== undefined && trips.length > 0 && (trips.map((trip, index) => {
 							return (
 								<Card key={index} className="trip" onClick={() => this.handleTrip(trip.tripID)}>
 									<CardActionArea >
@@ -203,8 +133,7 @@ class Trips extends Component {
 									</CardActionArea>
 								</Card>
 							)
-						})}
-						
+						}))}
 					</div>
 				</div>
 
@@ -214,6 +143,58 @@ class Trips extends Component {
 					</div>
 
 					<div>
+						{historyTrips !== undefined && historyTrips.length > 0 && (historyTrips.map((trip, index) => {
+							return (
+								<Card key={index} className="trip" onClick={() => this.handleTrip(trip.tripID)}>
+									<CardActionArea >
+										<CardContent className="trip-content-wrapper">
+											<div 
+												className="to-pic" 
+												style={{
+													backgroundImage: "url('" + window.location.origin + '/' + trip.toPicture + "'"
+												}}>
+											</div>
+											<div className="trip-content">
+												<div className="trip-from">
+													<div className="trip-header grey-text">
+														From
+													</div>
+
+													<div className="trip-destination">
+														{trip.fromShort}
+													</div>
+
+													<div className="trip-time grey-text">
+														<img className="depart-img" src={departImg} />
+														<p>{trip.fromDate}</p>
+													</div>
+												</div>
+												
+
+												<img className="golden-plane" src={goldenPlaneImg} />
+
+												<div className="trip-to">
+													<div className="trip-header grey-text">
+														To
+													</div>
+
+													<div className="trip-destination">
+														{trip.toShort}
+													</div>
+
+													<div className="trip-time grey-text">
+														<img className="depart-img" src={landingImg} />
+														<p>{trip.toDate}</p>
+													</div>
+												</div>
+											</div>
+
+											<img className="trip-next" src={nextPageImg} />
+										</CardContent>
+									</CardActionArea>
+								</Card>
+							)
+						}))}
 					</div>
 				</div>
 			</div>
@@ -221,4 +202,4 @@ class Trips extends Component {
 	}
 }
 
-export default Trips;
+export default withRouter(Trips);

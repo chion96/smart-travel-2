@@ -39,18 +39,10 @@ class Login extends Component {
                 this.props.login(res.data.result);
             }
         });
-
     };
 
     componentDidMount(){
-        function timeout() {
-            setTimeout(function () {
-                // Do Something Here
-                console.log(Date.now());
-                timeout();
-            }, 1000);
-        }
-        //timeout();
+        
     }
 
     render() {
