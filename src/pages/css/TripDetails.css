@@ -23,3 +23,63 @@
 .flight-overview-content {
 	font-weight: 500;
 }
+
+div.flight-detail-card {
+	border-radius: 0;
+}
+
+.flight-detail-card-content {
+	padding: 0 !important;
+}
+
+.flight-detail-header {
+	position: relative;
+	background-color: #006465;
+}
+
+.flight-detail-header, .flight-detail-header-image {
+	width: 100%;
+}
+
+.flight-detail-word-in-pic {
+	color: white;
+	position: absolute;
+	font-size: 12px;
+}
+
+.flight-detail-date {
+	left: 45%;
+    top: 5px;
+}
+
+.flight-detail-from {
+	bottom: 15px;
+    left: 12px;
+}
+
+.flight-detail-to {
+	bottom: 15px;
+    right: 21px;
+}
+
+.flight-detail-field {
+	padding: 10px 20px 5px 20px;
+    width: calc(50% - 40px);
+	display: inline-block;
+}
+
+.flight-detail-field-label {
+	font-size: 12px;
+}
+
+.flight-detail-field-value {
+	font-weight: 500;
+}
+
+.no-luggage-header, .no-luggage-alert {
+	text-align: center;
+}
+
+.no-luggage-alert {
+	margin-top: 25px;
+}
