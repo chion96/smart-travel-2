@@ -2,12 +2,24 @@ import React, { Component } from 'react';
 
 import beijingImg from '../src/beijing.png';
 import flightDetailBG from '../src/flightDetailsBanner2.png';
+import suitcaseWhiteImg from '../src/suitcase_white.png';
+import nextPageImg from '../src/nextpage.png';
 
 import {
 	Card,
 	CardActions,
 	CardContent,
-	Typography
+	Typography,
+	ExpansionPanel,
+	ExpansionPanelSummary,
+	ExpansionPanelDetails,
+	IconButton,
+	Icon,
+	Divider,
+	Stepper,
+	Step,
+	StepLabel,
+	StepContent
 } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
 
@@ -17,7 +29,7 @@ class TripDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			luggages: []
+			luggages: [1]
 		};
 	}
 
@@ -26,7 +38,8 @@ class TripDetails extends Component {
 
 		return (
 			<div className="trip-details-container">
-				<div>
+				<div className="trip-details-header-container">
+					<div className="header-destination">Beijing</div>
 					<img className="home-banner-img" src={beijingImg}/>
 					<Card className="header-card">
 						<CardContent className="header-card-content">
@@ -150,8 +163,73 @@ class TripDetails extends Component {
 								Checked In Luggage(s)
 							</div>
 
-							<div>
-								
+							<div className="baggages">
+								<Card className="baggage-card">
+									<CardContent className="baggage-card-content">
+										<div className="baggage-card-header">
+											<div className="baggage-card-suitcase-wrapper">
+												<img src={suitcaseWhiteImg} className="baggage-card-suitcase" />
+											</div>
+
+											<div className="baggage-card-basic-info-wrapper">
+												<div>
+													Luggage #123456789
+												</div>
+
+												<div>
+													23.5 KG
+												</div>
+											</div>
+
+											<div className="baggage-card-report-wrapper">
+												<IconButton>
+													<WarningIcon />
+												</IconButton>
+											</div>
+										</div>
+										<ExpansionPanel className="baggage-card-expansion">
+											<ExpansionPanelSummary 
+												className="baggage-card-summary" 
+												expandIcon={
+													<Icon>
+														<img className="expansion-icon-image" src={nextPageImg} />
+													</Icon>
+												}
+											>
+												<div>
+													<div className="baggage-lastest-status">
+														Latest Status: Onboard
+													</div>
+
+													<div className="baggage-location">
+														Location: Hong Kong Internation Airport
+													</div>
+												</div>
+											</ExpansionPanelSummary>
+											<Divider light />
+											<ExpansionPanelDetails>
+												<div className="baggage-timelin-detail">
+													Logistic Details:
+												</div>
+												<Stepper activeStep={1} orientation="vertical">
+													<Step key={0}>
+                										<StepLabel>Checked in at HKG</StepLabel>
+                										<StepContent>02 Jan 13:27</StepContent>
+                									</Step>
+                									<Step key={1}>
+                										<StepLabel>Onboarded at HKG</StepLabel>
+                										<StepContent>02 Jan 13:27</StepContent>
+                									</Step>
+                									<Step key={2}>
+                										<StepLabel>Offboarded at PEK</StepLabel>
+                										<StepContent>02 Jan 13:27</StepContent>
+                									</Step>
+												</Stepper>
+
+											</ExpansionPanelDetails>
+										</ExpansionPanel>
+									</CardContent>
+								</Card>
 							</div>
 						</div>
 					)}

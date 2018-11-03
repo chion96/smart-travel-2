@@ -15,6 +15,13 @@ const theme = createMuiTheme({
       main: '#006465',
     },
   },
+  overrides: {
+    MuiExpansionPanel: {
+      expanded: {
+        margin: '0'
+      }
+    }
+  }
 });
 
 ReactDOM.render(
