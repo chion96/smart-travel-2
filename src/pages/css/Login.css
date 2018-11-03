@@ -24,20 +24,20 @@
 
 }
 
-#standardInput {
+.standardInput {
   width: 300px;
 }
 
-label.MuiFormLabel-root-12{
+.standardInput > label{
   color: lightgray;
 }
 
-div.MuiInput-underline-23:before{
-  border-bottom: 1px solid rgba(243, 235, 235, 0.42);
+.content > div :before{
+  border-bottom: 1px solid rgba(243, 235, 235, 0.42) !important;
 }
 
-div.MuiInput-underline-23:after{
-  border-bottom: 1px solid rgba(243, 235, 235, 0.42);
+.content > div :after{
+  border-bottom: 1px solid rgba(243, 235, 235, 0.42) !important;
 }
 
 .content1{
