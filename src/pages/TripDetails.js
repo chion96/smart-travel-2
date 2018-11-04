@@ -59,7 +59,7 @@ class TripDetails extends Component {
 
 	componentDidMount() {
 		let getNoti = this.getNotification;
-
+		
 		function timeout() {
 		  setTimeout(function() {
 		      getNoti();

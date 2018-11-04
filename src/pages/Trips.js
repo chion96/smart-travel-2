@@ -39,21 +39,20 @@ class Trips extends Component {
 
 	componentDidMount() {
 		let getNoti = this.getNotification;
-
+		
 		function timeout() {
 		  setTimeout(function() {
 		      getNoti();
 		      timeout();
 		  }, 2500);
 		}
-
+		
 		timeout();
 	}
 
 	async getNotification() {
 		const { clientId } = this.props;
 		await axios.get(`http://localhost:8080/api/notification/`).then(res => {
-
 		  if (res.data !== false) {
 		    this.getTrips(clientId)
 		    toast.info(res.data[0].content, {
