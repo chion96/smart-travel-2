@@ -52,7 +52,7 @@ class App extends Component {
 
   componentWillMount() {
     let localStorageId = window.localStorage.getItem('clientId');
-    if (localStorageId !== undefined) {
+    if (localStorageId !== undefined && localStorageId !== null) {
       this.setState({
         clientId: JSON.parse(localStorageId),
         logged: true
@@ -69,6 +69,7 @@ class App extends Component {
     this.setState({
       logged: true,
       sideBarOpen: false,
+      clientId: clientId,
     })
   }
 
@@ -140,7 +141,7 @@ class App extends Component {
                         onClick={() => {
                             this.setState({ logged: false });
                             window.localStorage.removeItem('clientId');
-                            window.localStorage.removeItem('tridId');
+                            window.localStorage.removeItem('tripId');
                         }}
                       >
                           <ListItemIcon><InputIcon /></ListItemIcon>

@@ -54,20 +54,16 @@ class TripDetails extends Component {
 	}
 
 	componentWillMount() {
-		
+
+	}
+
+	componentWillUnmonut() {
+		this.timer = null;
+		clearInterval(this.timer);
 	}
 
 	componentDidMount() {
-		let getNoti = this.getNotification;
-		
-		function timeout() {
-		  setTimeout(function() {
-		      getNoti();
-		      timeout();
-		  }, 2500);
-		}
-
-		timeout();
+		this.timer = setInterval(() => this.getNotification(), 2500);
 	}
 
 	async getNotification() {
@@ -75,15 +71,20 @@ class TripDetails extends Component {
 
 		await axios.get(`http://localhost:8080/api/notification/`).then(res => {
 		  if (res.data !== false) {
-		    this.getTrip(clientId, tripId);
-		    toast.info(res.data[0].content, {
-		      position: toast.POSITION.BOTTOM_CENTER,
-		      autoClose: 5000,
-		      hideProgressBar: false,
-		      closeOnClick: true,
-		      pauseOnHover: true,
-		      draggable: true
-		    });
+		  	console.log(res.data[0].trip[0])
+		  	this.setState({
+		  		trip: res.data[0].trip[0]
+		  	},
+		  	() => {
+		  		toast.info(res.data[0].content, {
+			      position: toast.POSITION.BOTTOM_CENTER,
+			      autoClose: 5000,
+			      hideProgressBar: false,
+			      closeOnClick: true,
+			      pauseOnHover: true,
+			      draggable: true
+			    });
+		  	});
 		  }
 		});
 	};
@@ -92,10 +93,10 @@ class TripDetails extends Component {
 		let localStorageId = window.localStorage.getItem('clientId');
 		let localStorageTripId = window.localStorage.getItem('tripId');
 		let obj = {};
-	    if (localStorageId !== undefined) {
+	    if (localStorageId !== undefined && localStorageId !== null) {
 	     	obj.clientId = JSON.parse(localStorageId);
 	    }
-	    if (localStorageTripId !== undefined) {
+	    if (localStorageTripId !== undefined && localStorageTripId !== null) {
 	    	obj.tripId = JSON.parse(localStorageTripId)
 	    }
 	    
@@ -111,7 +112,10 @@ class TripDetails extends Component {
 
 	async getTrip(clientId, tripId) {
 		await axios.get(`http://localhost:8080/api/trip/${clientId}/${tripId}`).then(res => {
-			this.setState({ trip: res.data });
+			this.setState({ trip: res.data }, () => {
+				this.forceUpdate();
+			});
+
         });
 	}
 
@@ -358,22 +362,6 @@ class TripDetails extends Component {
 							</Card>
 						</div>
 					</div>
-
-					<Modal
-			          isOpen={this.state.modalOpen}
-			          onRequestClose={this.handleClose}
-			          contentLabel="Example Modal"
-			        >
-			          <button onClick={this.handleClose}>close</button>
-			          <div>I am a modal</div>
-			          <form>
-			            <input />
-			            <button>tab navigation</button>
-			            <button>stays</button>
-			            <button>inside</button>
-			            <button>the modal</button>
-			          </form>
-			        </Modal>
 				</div>
 			)
 		} else {

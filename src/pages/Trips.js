@@ -28,7 +28,6 @@ class Trips extends Component {
 			historyTrips: [],
 		};
 		this.handleTrip = this.handleTrip.bind(this);
-		this.getNotification = this.getNotification.bind(this);
 	}
 
 	componentWillMount() {
@@ -36,36 +35,6 @@ class Trips extends Component {
 
 		this.getTrips(clientId);
 	}
-
-	componentDidMount() {
-		let getNoti = this.getNotification;
-		
-		function timeout() {
-		  setTimeout(function() {
-		      getNoti();
-		      timeout();
-		  }, 2500);
-		}
-		
-		timeout();
-	}
-
-	async getNotification() {
-		const { clientId } = this.props;
-		await axios.get(`http://localhost:8080/api/notification/`).then(res => {
-		  if (res.data !== false) {
-		    this.getTrips(clientId)
-		    toast.info(res.data[0].content, {
-		      position: toast.POSITION.BOTTOM_CENTER,
-		      autoClose: 5000,
-		      hideProgressBar: false,
-		      closeOnClick: true,
-		      pauseOnHover: true,
-		      draggable: true
-		    });
-		  }
-		});
-	};
 
 	async getTrips(clientId) {
 		await axios.get(`http://localhost:8080/api/trips/${clientId}`).then(async resTrips => {
@@ -80,14 +49,12 @@ class Trips extends Component {
 
 	async handleTrip(tripId) {
 		const { clientId, history } = this.props;
-        await axios.get(`http://localhost:8080/api/trip/${clientId}/${tripId}`).then(res => {
-        	window.localStorage.setItem('tripId', tripId);
-        	history.push({
-        		pathname: '/trip_details',
-        		tripId: res.data.tripID,
-        		clientId: clientId
-        	});
-        });
+    	window.localStorage.setItem('tripId', tripId);
+    	history.push({
+    		pathname: '/trip_details',
+    		tripId: tripId,
+    		clientId: clientId
+    	});
     };
 
 	render() {
