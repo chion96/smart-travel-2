@@ -23,17 +23,16 @@ import {
 	Stepper,
 	Step,
 	StepLabel,
-	StepContent,
-	Modal
+	StepContent
 } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
-
 import './css/TripDetails.css';
 
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 class TripDetails extends Component {
 	constructor(props) {
@@ -44,11 +43,44 @@ class TripDetails extends Component {
 		}
 		this.handleOpen = this.handleOpen.bind(this);
 		this.handleClose = this.handleClose.bind(this);
+		this.getNotification = this.getNotification.bind(this);
 	}
 
 	componentWillReceiveProps(props) {
 
 	}
+
+	componentDidMount() {
+		let getNoti = this.getNotification;
+
+		function timeout() {
+		  setTimeout(function() {
+		      getNoti();
+		      timeout();
+		  }, 2500);
+		}
+
+		timeout();
+	}
+
+	async getNotification() {
+		const { location, history } = this.props;
+		const clientId = location.clientId, tripId = location.tripId
+
+		await axios.get(`http://localhost:8080/api/notification/`).then(res => {
+		  if (res.data !== false) {
+		    this.getTrip(clientId, tripId);
+		    toast.info(res.data[0].content, {
+		      position: toast.POSITION.BOTTOM_CENTER,
+		      autoClose: 5000,
+		      hideProgressBar: false,
+		      closeOnClick: true,
+		      pauseOnHover: true,
+		      draggable: true
+		    });
+		  }
+		});
+	};
 
 	componentWillMount() {
 		const { location, history } = this.props;
@@ -312,21 +344,7 @@ class TripDetails extends Component {
 								</IconButton> 
 							</Card>
 						</div>
-					</div>
-					
-					<Modal
-			          open={this.state.modalOpen}
-			          onClose={this.handleClose}
-			        >
-			          <div className="modal">
-			            <Typography variant="h6" id="modal-title">
-			              Text in a modal
-			            </Typography>
-			            <Typography variant="subtitle1" id="simple-modal-description">
-			              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-			            </Typography>
-			          </div>
-        			</Modal>
+					</div>	
 				</div>
 			)
 		} else {

@@ -43,11 +43,11 @@ class App extends Component {
       sideBarOpen: false,
       logged: false,
       trips: [],
-      clientId: undefined
+      clientId: undefined,
+      toggle: false
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
     this.login = this.login.bind(this);
-    this.getNotification = this.getNotification.bind(this);
   }
 
   componentWillMount() {
@@ -59,39 +59,6 @@ class App extends Component {
       })
     }
   }
-
-  componentDidMount() {
-    const { logged } = this.state;
-    let getNoti = this.getNotification;
-
-    function timeout() {
-      setTimeout(function() {
-          getNoti();
-          timeout();
-      }, 2500);
-    }
-
-    if (logged) {
-      timeout();
-    }
-  }
-
-  async getNotification() {
-    console.log('getting notfi')
-    await axios.get(`http://localhost:8080/api/notification/`).then(res => {
-      console.log(res.data);
-      if (res.data !== false) {
-        toast.success(res.data.content, {
-          position: toast.POSITION.BOTTOM_CENTER,
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-        });
-      }
-    });
-  };
 
   componentWillReceiveProps(props) {
     console.log(props)
@@ -112,7 +79,7 @@ class App extends Component {
 
   render() {
     const { path } = this.props;
-    const { sideBarOpen, logged, clientId, shouldUpdate } = this.state;
+    const { sideBarOpen, logged, clientId, shouldUpdate, toggle } = this.state;
     
     return (
       <Router>
@@ -184,8 +151,8 @@ class App extends Component {
                 </header>
 
                 <div className="app-container">
-                  <Route exact path="/" component={() => <Trips clientId={clientId}/>}/>
-                  <Route path="/trip_details" component={TripDetails} />
+                  <Route exact path="/" component={() => <Trips clientId={clientId} toggle={toggle}/>}/>
+                  <Route path="/trip_details" component={() => <TripDetails toggle={toggle}/>} />
                 </div>
 
                 <footer>
