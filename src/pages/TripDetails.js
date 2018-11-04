@@ -28,6 +28,7 @@ import {
 import WarningIcon from '@material-ui/icons/Warning';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import Modal from 'react-modal';
 
 import './css/TripDetails.css';
 
@@ -299,9 +300,7 @@ class TripDetails extends Component {
 																	Latest Status: {item.status}
 																</div>
 
-																<div className="baggage-location">
-																	Location: {item.location}
-																</div>
+									
 															</div>
 														</ExpansionPanelSummary>
 														<Divider light />
@@ -358,7 +357,23 @@ class TripDetails extends Component {
 								</IconButton> 
 							</Card>
 						</div>
-					</div>	
+					</div>
+
+					<Modal
+			          isOpen={this.state.modalOpen}
+			          onRequestClose={this.handleClose}
+			          contentLabel="Example Modal"
+			        >
+			          <button onClick={this.handleClose}>close</button>
+			          <div>I am a modal</div>
+			          <form>
+			            <input />
+			            <button>tab navigation</button>
+			            <button>stays</button>
+			            <button>inside</button>
+			            <button>the modal</button>
+			          </form>
+			        </Modal>
 				</div>
 			)
 		} else {
