@@ -25,13 +25,17 @@ div.content-div {
 	padding: 20px 20px 0px 20px;
 }
 
+div.content-div:last-child {
+	padding: 5px 20px 0px 20px;
+}
+
 div.content-header {
 	color: #006465;
 	font-weight: bold;
 }
 
 div.trip {
-	margin: 12px 0;
+	margin: 18px 0;
 }
 
 div.trip-content-wrapper {

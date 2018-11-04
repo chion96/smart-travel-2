@@ -11,6 +11,8 @@ import {
 	Card,
 	CardActions,
 	CardContent,
+	CardActionArea,
+	CardMedia,
 	Typography,
 	ExpansionPanel,
 	ExpansionPanelSummary,
@@ -24,6 +26,9 @@ import {
 	StepContent
 } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+
 
 import './css/TripDetails.css';
 
@@ -164,7 +169,7 @@ class TripDetails extends Component {
 								<div className="delivery">
 									<img className="deliver-img" src={deliveryImg} />
 									<div className="delivery-text">
-										Direct Luggage Delivery Service
+										Luggage Delivery Service
 									</div>
 								</div>
 							</CardContent>
@@ -275,6 +280,40 @@ class TripDetails extends Component {
 								</div>
 							</div>
 						)}
+					</div>
+
+					<div className="content-div">
+						<div className="content-header">
+							Luggage Picture(s)
+						</div>
+						<div className="baggagesPic">
+							<Card className="baggage-card">
+								<CardActionArea>
+									<CardMedia
+										className="class-media"
+										title="Contemplative Reptile"
+										alt="Contemplative Reptile"
+									>
+										<div className = "baggage-pic-shadow-box">
+											<img className = 'baggage-pic' src="/pic1.jpg"  />
+											<IconButton  className="remove-photos-icon-button">
+												<RemoveCircleIcon />
+											</IconButton>
+										</div>
+										
+										<div className = "baggage-pic-shadow-box">
+											<img className = 'baggage-pic' src="/pic2.jpg"  />
+											<IconButton  className="remove-photos-icon-button">
+												<RemoveCircleIcon />
+											</IconButton>
+										</div>
+										<IconButton  className="add-photos-icon-button">
+											<AddToPhotosIcon className="add-photos-icon"/>
+										</IconButton> 
+									</CardMedia>
+								</CardActionArea>
+							</Card>
+						</div>
 					</div>
 					
 				</div>

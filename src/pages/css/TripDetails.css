@@ -183,9 +183,9 @@ div.flight-detail-card {
 .delivery-text {
 	position: absolute;
     color: white;
-    top: 11px;
-    left: 20px;
-    font-size: 14px;
+    top: 8px;
+    left: 19px;
+    font-size: 13px;
 }
 
 .baggage-card-report-wrapper > div {
@@ -212,10 +212,27 @@ div.flight-detail-card {
 
 .baggage-pic-shadow-box{
 	border: 1px solid;
-	border-color: #224A78;
+    border-color: #224A78;
     padding: 10px;
-	box-shadow: 1px 5px;
-	display: inline-block;
-	margin-left: 15px;
-	margin-top: 15px;
+    box-shadow: 2px 1px;
+    display: inline-block;
+    margin: 14px 4px 14px 10px;
+}
+
+button.add-photos-icon-button {
+	position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px;
+}
+
+svg.add-photos-icon {
+	font-size: 32px !important;
+}
+
+button.remove-photos-icon-button {
+	padding: 0;
+    position: absolute;
+    top: 0;
+    color: rgba(0, 0, 0, 1);
 }
