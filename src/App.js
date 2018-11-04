@@ -65,13 +65,11 @@ class App extends Component {
   }
 
   login(clientId) {
-    window.localStorage.setItem('clientId', clientId, () => {
-      this.setState({
-        logged: true,
-        sideBarOpen: false,
-      })
-    });
-    
+    window.localStorage.setItem('clientId', clientId);
+    this.setState({
+      logged: true,
+      sideBarOpen: false,
+    })
   }
 
   toggleSideBar() {
