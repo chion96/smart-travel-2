@@ -39,7 +39,9 @@ class TripDetails extends Component {
 		super(props);
 		this.state = {
 			trip: undefined,
-			modalOpen: false
+			modalOpen: false,
+			clientId: undefined,
+			tripId: undefined
 		}
 		this.handleOpen = this.handleOpen.bind(this);
 		this.handleClose = this.handleClose.bind(this);
@@ -48,6 +50,10 @@ class TripDetails extends Component {
 
 	componentWillReceiveProps(props) {
 
+	}
+
+	componentWillMount() {
+		
 	}
 
 	componentDidMount() {
@@ -64,8 +70,7 @@ class TripDetails extends Component {
 	}
 
 	async getNotification() {
-		const { location, history } = this.props;
-		const clientId = location.clientId, tripId = location.tripId
+		const { clientId, tripId } = this.state;
 
 		await axios.get(`http://localhost:8080/api/notification/`).then(res => {
 		  if (res.data !== false) {
@@ -83,14 +88,23 @@ class TripDetails extends Component {
 	};
 
 	componentWillMount() {
-		const { location, history } = this.props;
-		const clientId = location.clientId, tripId = location.tripId
-		if (clientId === undefined || tripId === undefined) {
-			history.push({
+		let localStorageId = window.localStorage.getItem('clientId');
+		let localStorageTripId = window.localStorage.getItem('tripId');
+		let obj = {};
+	    if (localStorageId !== undefined) {
+	     	obj.clientId = JSON.parse(localStorageId);
+	    }
+	    if (localStorageTripId !== undefined) {
+	    	obj.tripId = JSON.parse(localStorageTripId)
+	    }
+	    
+		if (obj.clientId === undefined || obj.tripId === undefined) {
+			this.props.history.push({
 				pathname: '/'
 			});
 		} else {
-			this.getTrip(clientId, tripId);
+			this.getTrip(obj.clientId, obj.tripId);
+			this.setState(obj);
 		}
 	}
 

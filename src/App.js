@@ -141,6 +141,7 @@ class App extends Component {
                         onClick={() => {
                             this.setState({ logged: false });
                             window.localStorage.removeItem('clientId');
+                            window.localStorage.removeItem('tridId');
                         }}
                       >
                           <ListItemIcon><InputIcon /></ListItemIcon>

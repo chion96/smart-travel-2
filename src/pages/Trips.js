@@ -82,6 +82,7 @@ class Trips extends Component {
 	async handleTrip(tripId) {
 		const { clientId, history } = this.props;
         await axios.get(`http://localhost:8080/api/trip/${clientId}/${tripId}`).then(res => {
+        	window.localStorage.setItem('tripId', tripId);
         	history.push({
         		pathname: '/trip_details',
         		tripId: res.data.tripID,
