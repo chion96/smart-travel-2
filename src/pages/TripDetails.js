@@ -23,7 +23,8 @@ import {
 	Stepper,
 	Step,
 	StepLabel,
-	StepContent
+	StepContent,
+	Modal
 } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
@@ -38,8 +39,11 @@ class TripDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			trip: undefined
+			trip: undefined,
+			modalOpen: false
 		}
+		this.handleOpen = this.handleOpen.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
 
 	componentWillReceiveProps(props) {
@@ -63,6 +67,14 @@ class TripDetails extends Component {
 			this.setState({ trip: res.data });
         });
 	}
+
+	handleOpen() {
+		this.setState({ modalOpen: true });
+	};
+
+	handleClose() {
+	    this.setState({ modalOpen: false });
+	};
 
 	render() {
 		const { trip } = this.state;
@@ -162,11 +174,11 @@ class TripDetails extends Component {
 										</div>
 
 										<div className="flight-detail-field-value">
-											32 KG
+											{trip.PaggaeAllow} KG
 										</div>
 									</div>
 								</div>
-								<div className="delivery">
+								<div className="delivery" onClick={() => this.handleOpen()}>
 									<img className="deliver-img" src={deliveryImg} />
 									<div className="delivery-text">
 										Luggage Delivery Service
@@ -212,11 +224,11 @@ class TripDetails extends Component {
 
 														<div className="baggage-card-basic-info-wrapper">
 															<div>
-																Luggage #123456789
+																Luggage #{item.luggageID}
 															</div>
 
 															<div>
-																23.5 KG
+																{item.weight} KG
 															</div>
 														</div>
 
@@ -238,11 +250,11 @@ class TripDetails extends Component {
 														>
 															<div>
 																<div className="baggage-lastest-status">
-																	Latest Status: Onboard
+																	Latest Status: {item.status}
 																</div>
 
 																<div className="baggage-location">
-																	Location: Hong Kong Internation Airport
+																	Location: {item.location}
 																</div>
 															</div>
 														</ExpansionPanelSummary>
@@ -253,22 +265,16 @@ class TripDetails extends Component {
 																	Logistic Details:
 																</div>
 																<Stepper className="baggage-timeline" orientation="vertical">
-																	<Step key={0} active={true} completed={true}>
-				                										<StepLabel>Checked in at HKG</StepLabel>
-				                										<StepContent>02 Jan 13:27</StepContent>
-				                									</Step>
-				                									<Step key={1} active={true} completed={true}>
-				                										<StepLabel>Onboarded at HKG</StepLabel>
-				                										<StepContent>02 Jan 15:04</StepContent>
-				                									</Step>
-				                									<Step key={2} active={true} completed={true}>
-				                										<StepLabel>Offboarded at PEK</StepLabel>
-				                										<StepContent>02 Jan 18:30</StepContent>
-				                									</Step>
-				                									<Step key={3}>
-				                										<StepLabel>On belt at PEK</StepLabel>
-				                										<StepContent>02 Jan 18:46</StepContent>
-				                									</Step>
+																	{item.timeline.map((step, index) => {
+																		let completed = (step.time !== '' && step.time !== undefined);
+
+																		return (
+																			<Step key={index} active={completed} completed={completed}>
+						                										<StepLabel>{step.details}</StepLabel>
+						                										<StepContent>{step.time}</StepContent>
+						                									</Step>
+																		)
+																	})}
 																</Stepper>
 															</div>
 														</ExpansionPanelDetails>
@@ -287,35 +293,40 @@ class TripDetails extends Component {
 							Luggage Picture(s)
 						</div>
 						<div className="baggagesPic">
-							<Card className="baggage-card">
-								<CardActionArea>
-									<CardMedia
-										className="class-media"
-										title="Contemplative Reptile"
-										alt="Contemplative Reptile"
-									>
-										<div className = "baggage-pic-shadow-box">
-											<img className = 'baggage-pic' src="/pic1.jpg"  />
-											<IconButton  className="remove-photos-icon-button">
-												<RemoveCircleIcon />
-											</IconButton>
-										</div>
-										
-										<div className = "baggage-pic-shadow-box">
-											<img className = 'baggage-pic' src="/pic2.jpg"  />
-											<IconButton  className="remove-photos-icon-button">
-												<RemoveCircleIcon />
-											</IconButton>
-										</div>
-										<IconButton  className="add-photos-icon-button">
-											<AddToPhotosIcon className="add-photos-icon"/>
-										</IconButton> 
-									</CardMedia>
-								</CardActionArea>
+							<Card className="baggage-image-summary ">
+								<div className = "baggage-pic-shadow-box">
+									<img className = 'baggage-pic' src="/pic1.jpg"  />
+									<IconButton  className="remove-photos-icon-button">
+										<RemoveCircleIcon />
+									</IconButton>
+								</div>
+								
+								<div className = "baggage-pic-shadow-box">
+									<img className = 'baggage-pic' src="/pic2.jpg"  />
+									<IconButton  className="remove-photos-icon-button">
+										<RemoveCircleIcon />
+									</IconButton>
+								</div>
+								<IconButton  className="add-photos-icon-button">
+									<AddToPhotosIcon className="add-photos-icon"/>
+								</IconButton> 
 							</Card>
 						</div>
 					</div>
 					
+					<Modal
+			          open={this.state.modalOpen}
+			          onClose={this.handleClose}
+			        >
+			          <div className="modal">
+			            <Typography variant="h6" id="modal-title">
+			              Text in a modal
+			            </Typography>
+			            <Typography variant="subtitle1" id="simple-modal-description">
+			              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+			            </Typography>
+			          </div>
+        			</Modal>
 				</div>
 			)
 		} else {

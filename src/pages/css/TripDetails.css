@@ -101,6 +101,7 @@ div.flight-detail-card {
 
 .baggage-card {
 	margin-top: 10px;
+	position: relative;
 }
 
 .baggage-card:last-child {
@@ -235,4 +236,12 @@ button.remove-photos-icon-button {
     position: absolute;
     top: 0;
     color: rgba(0, 0, 0, 1);
+}
+
+.baggagesPic {
+	margin-top: 12px;
+}
+
+.baggage-image-summary {
+	position: relative;
 }
